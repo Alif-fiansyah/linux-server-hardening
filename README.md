@@ -1,3 +1,7 @@
+![CI Testing](https://github.com/Alif-fiansyah/linux-server-hardening/actions/workflows/ci.yml/badge.svg)
+
+# 🛡️ Linux Server Hardening
+
 # Linux Server Hardening
 
 An advanced, menu-driven Bash automation script designed for initial configuration, multi-distro package management, security hardening, and basic utility installation on Linux systems (**Arch Linux** & **Debian/Ubuntu**). This project is built to streamline and standardize server security quickly and efficiently, ideal for infrastructure automation portfolios.
