@@ -16,6 +16,9 @@ else
     exit 1
 fi
 
+# Direktori penyimpanan hasil backup
+BACKUP_DIR="/var/backups/server-hardening"
+
 # Fungsi untuk Update & Install Tools
 install_tools() {
     echo "[+] Memperbarui sistem & menginstal tools keamanan..."
@@ -70,14 +73,39 @@ setup_ssh() {
     fi
 }
 
+# Fungsi Baru: Backup Konfigurasi Kritis
+backup_config() {
+    echo "[+] Memulai proses Backup Konfigurasi Server..."
+    
+    # Buat direktori backup jika belum ada
+    mkdir -p "$BACKUP_DIR"
+    
+    # Buat nama file berdasarkan tanggal & waktu (timestamp)
+    TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+    BACKUP_FILE="$BACKUP_DIR/config_backup_$TIMESTAMP.tar.gz"
+    
+    # Arsipkan file konfigurasi penting (SSH, UFW, Fail2Ban jika ada)
+    tar -czf "$BACKUP_FILE" \
+        /etc/ssh/sshd_config \
+        /etc/ufw/ \
+        /etc/fail2ban/jail.conf 2>/dev/null
+        
+    if [ $? -eq 0 ]; then
+        echo "[+] Backup berhasil disimpan di: $BACKUP_FILE"
+    else
+        echo "[-] Terjadi kesalahan atau beberapa file konfigurasi belum tersedia untuk di-backup."
+    fi
+}
+
 # Fungsi untuk Menjalankan Semua Sekaligus (Full Automation)
 run_all() {
     install_tools
     setup_ufw
     setup_fail2ban
     setup_ssh
+    backup_config
     echo "[========================================================]"
-    echo "[+] Semua tahapan Server Hardening Selesai Diterapkan!"
+    echo "[+] Semua tahapan Server Hardening & Backup Selesai!"
     echo "[========================================================]"
 }
 
@@ -88,14 +116,15 @@ while true; do
     echo "   LINUX SERVER HARDENING & AUTOMATION TOOL"
     echo "   Detected OS: $OS"
     echo "=============================================="
-    echo "1. Jalankan Semua (Full Hardening & Setup)"
+    echo "1. Jalankan Semua (Full Hardening + Backup)"
     echo "2. Update Sistem & Install Tools Keamanan"
     echo "3. Konfigurasi UFW Firewall"
     echo "4. Aktifkan Fail2Ban"
     echo "5. Terapkan SSH Hardening (Disable Root Login)"
-    echo "6. Keluar (Exit)"
+    echo "6. Backup Konfigurasi Server (.tar.gz)"
+    echo "7. Keluar (Exit)"
     echo "=============================================="
-    read -p "Pilih menu [1-6]: " choice
+    read -p "Pilih menu [1-7]: " choice
 
     case $choice in
         1)
@@ -119,11 +148,15 @@ while true; do
             read -p "Tekan [Enter] untuk kembali ke menu..."
             ;;
         6)
+            backup_config
+            read -p "Tekan [Enter] untuk kembali ke menu..."
+            ;;
+        7)
             echo "Keluar dari skrip. Sampai jumpa!"
             exit 0
             ;;
         *)
-            echo "[-] Pilihan tidak valid! Masukkan angka 1 sampai 6."
+            echo "[-] Pilihan tidak valid! Masukkan angka 1 sampai 7."
             sleep 2
             ;;
     esac
