@@ -1,0 +1,17 @@
+# Log files and temporary reports
+*.log
+*.txt
+report/
+
+# Backup archives (tar, zip, gz)
+*.tar.gz
+*.zip
+*.bak
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE specific
+.vscode/
+.idea/
