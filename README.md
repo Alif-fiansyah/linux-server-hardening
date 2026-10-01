@@ -9,6 +9,7 @@ An advanced, menu-driven Bash automation script designed for initial configurati
 - **UFW Firewall Configuration**: Blocks all incoming traffic (*deny incoming*) except for essential ports (SSH, HTTP, HTTPS) and automatically enables the UFW service via `systemd`.
 - **Fail2Ban Integration**: Protects SSH services against brute-force attacks with a responsive local jail configuration.
 - **SSH Hardening**: Enhances remote access security by automatically disabling direct root logins (`PermitRootLogin no`).
+- **Automated Configuration Backup**: Safely archives critical server configurations (`/etc/ssh/sshd_config`, `/etc/ufw/`, etc.) into a compressed `.tar.gz` file with unique timestamp naming.
 - **Automated Service Management**: Enables and starts security daemons directly through `systemctl`.
 ## Usage Instructions
 
@@ -49,6 +50,7 @@ docker run -it linux-hardening-test
 
 - **Language:** Bash Scripting
 - **Os Target:** Arch Linux, Debian, Ubuntu
+- **Containerization:** Docker
 - **Tools:** `pacman, ufw, fail2ban, systemd, openssh`
 
 ## Security Verification
