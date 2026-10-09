@@ -2,7 +2,7 @@
 
 # Linux Server Hardening
 
-An advanced, menu-driven Bash automation script designed for initial configuration, multi-distro package management, security hardening, and basic utility installation on Linux systems (**Arch Linux** & **Debian/Ubuntu**). This project is built to streamline and standardize server security quickly and efficiently, ideal for infrastructure automation portfolios.
+Skrip ini punya antarmuka menu interaktif yang bisa dipakai di Arch Linux maupun Debian/Ubuntu. Fungsinya buat ngebantu setup awal server biar lebih praktis dan aman—mulai dari update sistem, atur firewall UFW, pasang Fail2Ban buat nahan brute-force, sampai hardening SSH dan auto-backup file konfigurasinya.
 
 ## Key Features
 - **Interactive Menu-Driven CLI**: A user-friendly, text-based navigation interface allowing you to run specific tasks or execute full automation effortlessly.
